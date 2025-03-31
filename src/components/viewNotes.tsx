@@ -1,11 +1,17 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-import NoteList from "./noteList"
-import NotesFilter from "./noteFilter"
+import IconButton from "@mui/material/IconButton"
 import Grid from "@mui/material/Grid"
 import Pagination from "@mui/material/Pagination"
 
+import NoteList from "./noteList"
+import NotesFilter from "./noteFilter"
+import { CircleX } from "lucide-react"
+import { useTypedDispatch } from "../store/hooks"
+import { toggleViewAllNotes } from "../store/toggleSlice"
+
 const ViewNotes = () => {
+  const dispatch = useTypedDispatch()
   return (
     <>
       <Box
@@ -22,10 +28,20 @@ const ViewNotes = () => {
         }}
       >
         <Grid>
-          <Grid size={2}>
+          <Grid
+            size={2}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography id="modal-modal-title" variant="h6" component={"h2"}>
               Notes
             </Typography>
+            <IconButton onClick={() => dispatch(toggleViewAllNotes())}>
+              <CircleX />
+            </IconButton>
           </Grid>
           <Grid
             sx={{

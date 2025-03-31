@@ -3,8 +3,11 @@ import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { CircleCheckBig, CircleX } from "lucide-react"
+import { useTypedDispatch } from "../store/hooks"
+import { toggleNewHabbit } from "../store/toggleSlice"
 
 const AddHabbit = () => {
+  const dispatch = useTypedDispatch()
   return (
     <>
       <Box
@@ -50,6 +53,7 @@ const AddHabbit = () => {
               variant="outlined"
               sx={{ padding: 2, borderRadius: 2 }}
               endIcon={<CircleX />}
+              onClick={() => dispatch(toggleNewHabbit())}
             >
               Cancel
             </Button>

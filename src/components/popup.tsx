@@ -1,10 +1,25 @@
 import Modal from "@mui/material/Modal"
+import { useTypedSelector } from "../store/hooks"
 
-const PopUp = ({ children }: { children: React.ReactNode }) => {
+type TPopUp = {
+  children: React.ReactNode
+}
+
+const PopUp: React.FC<TPopUp> = ({ children }) => {
+  const toggleState = useTypedSelector((states) => states.toggles)
+  const isEnabled =
+    toggleState.isNewEntry ||
+    toggleState.isNewHabbit ||
+    toggleState.isViewAllNotes
+
+  const handleOnclose = () => {
+    console.log("Modal is closed")
+  }
   return (
     <div>
       <Modal
-        open={false}
+        open={isEnabled}
+        onClose={handleOnclose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

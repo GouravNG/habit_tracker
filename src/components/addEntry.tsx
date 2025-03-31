@@ -3,8 +3,11 @@ import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { CircleCheckBig, CircleX } from "lucide-react"
+import { useTypedDispatch } from "../store/hooks"
+import { toggleNewEntry } from "../store/toggleSlice"
 
 const AddEntry = () => {
+  const dispatch = useTypedDispatch()
   return (
     <>
       <Box
@@ -51,6 +54,7 @@ const AddEntry = () => {
               variant="outlined"
               sx={{ padding: 2, borderRadius: 2 }}
               endIcon={<CircleX />}
+              onClick={() => dispatch(toggleNewEntry())}
             >
               Cancel
             </Button>
