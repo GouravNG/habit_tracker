@@ -7,11 +7,13 @@ import ViewNotes from "./components/viewNotes"
 import { useTypedSelector } from "./store/hooks"
 import AddEntry from "./components/addEntry"
 import AddHabbit from "./components/addHabbit"
+import Header from "./components/header"
 
 function App() {
   const toggleState = useTypedSelector((states) => states.toggles)
   return (
     <>
+      <Header />
       <Grid container height={"30vh"}>
         <Popup>
           {toggleState.isViewAllNotes && <ViewNotes />}
