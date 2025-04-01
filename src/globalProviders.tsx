@@ -2,12 +2,15 @@ import { ThemeProvider } from "@emotion/react"
 import { habbitTheme } from "./theme/theme"
 import { Provider } from "react-redux"
 import habbitStore from "./store/habbitStore"
+import { BrowserRouter } from "react-router"
 
 const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Provider store={habbitStore}>
-        <ThemeProvider theme={habbitTheme}>{children}</ThemeProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={habbitTheme}>{children}</ThemeProvider>
+        </BrowserRouter>
       </Provider>
     </>
   )
