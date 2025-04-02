@@ -1,18 +1,32 @@
-import {
-  Box,
-  Button,
-  Card,
-  Grid,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material"
+import Grid from "@mui/material/Grid"
+import Typography from "@mui/material/Typography"
+import Card from "@mui/material/Card"
+import Box from "@mui/material/Box"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Stack from "@mui/material/Stack"
+import TextField from "@mui/material/TextField"
+import Button from "@mui/material/Button"
 import { useState } from "react"
+import { useLogin, useSignup } from "../api/hooks/auth.hooks"
+import { TSignUPLogIn } from "../api/api.modal"
 
 const AuthContainer = () => {
   const [tab, setTab] = useState(0)
+  const signup = useSignup()
+  const login = useLogin()
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const payload: TSignUPLogIn = {
+      email: formData.get("email")!.toString(),
+      password: formData.get("password")!.toString(),
+    }
+    if (tab) signup.mutate(payload)
+    else login.mutate(payload)
+  }
+
   return (
     <>
       <Grid
@@ -26,8 +40,18 @@ const AuthContainer = () => {
       >
         <Grid size={5}>
           <Card elevation={4} sx={{ padding: 2, borderRadius: 2 }}>
-            <Typography variant="h5" fontWeight={700} textAlign={"center"}>
-              Habit Tracker
+            <Typography
+              variant="h5"
+              fontWeight={700}
+              textAlign={"center"}
+              sx={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+                gap: 1,
+              }}
+            >
+              Habit Tracker <Box component={"span"}>🎯</Box>
             </Typography>
             <Tabs
               centered
@@ -38,10 +62,15 @@ const AuthContainer = () => {
               <Tab label={"Login"} sx={{ width: "50%", padding: 1 }} />
               <Tab label={"SignUp"} sx={{ width: "50%", padding: 1 }} />
             </Tabs>
-            <Stack component={"form"} spacing={2}>
+            <Stack
+              component={"form"}
+              spacing={2}
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <Box>
                 <TextField
                   id="email"
+                  name="email"
                   label="Email"
                   placeholder="Enter your email"
                   sx={{ width: "100%" }}
@@ -50,6 +79,7 @@ const AuthContainer = () => {
               <Box sx={{ width: "100%" }}>
                 <TextField
                   id="password"
+                  name="password"
                   label="Password"
                   placeholder="Enter your password"
                   type="password"
@@ -60,6 +90,7 @@ const AuthContainer = () => {
                 <Box sx={{ width: "100%" }}>
                   <TextField
                     id="confirm-password"
+                    name="confirm-password"
                     label="Confirm Password"
                     placeholder="Re-enter password"
                     type="password"
@@ -67,7 +98,12 @@ const AuthContainer = () => {
                   />
                 </Box>
               )}
-              <Button variant="contained" size="small" sx={{ padding: 2 }}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ padding: 2 }}
+                type="submit"
+              >
                 {tab ? "Signup" : "Login"}
               </Button>
             </Stack>
