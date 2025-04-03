@@ -8,3 +8,13 @@ export const authInstance = axios.create({
     apikey: import.meta.env.VITE_SUPABASE_TOKEN,
   },
 })
+
+export const apiInstance = axios.create({
+  baseURL,
+  timeout: 1000,
+  headers: {
+    apikey: import.meta.env.VITE_SUPABASE_TOKEN,
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Prefer: "return=minimum",
+  },
+})
