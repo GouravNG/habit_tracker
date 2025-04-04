@@ -5,13 +5,12 @@ import Typography from "@mui/material/Typography"
 import { CircleCheckBig, CircleX } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleNewHabbit } from "../store/toggleSlice"
-import useCreateHabbit, { useGetHabbits } from "../api/hooks/habit.hooks"
+import useCreateHabbit from "../api/hooks/habit.hooks"
 import { TCreateHabbit } from "../api/api.modal"
 
 const AddHabbit = () => {
   const dispatch = useTypedDispatch()
   const habbit = useCreateHabbit()
-  useGetHabbits()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -19,6 +18,7 @@ const AddHabbit = () => {
       name: formData.get("habbit-name")!.toString(),
       user_id: localStorage.getItem("userId")!,
     }
+    dispatch(toggleNewHabbit())
     habbit.mutate(payload)
   }
   return (

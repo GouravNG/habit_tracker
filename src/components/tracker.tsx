@@ -4,16 +4,17 @@ import Typography from "@mui/material/Typography"
 import { CircleCheck } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleNewEntry } from "../store/toggleSlice"
+import { THabbitResponse } from "../api/api.modal"
 
 const placeHolderArray = [1, 2, 3, 4, 5, 6, 7]
 
-const Tracker = () => {
+const Tracker = ({ data }: { data: THabbitResponse }) => {
   const dispatch = useTypedDispatch()
   return (
     <Grid size={12} container marginBottom={1}>
       <Grid size={2} alignContent={"center"} justifyContent={"center"}>
         <Typography variant="h6" textAlign={"center"}>
-          Running 🏃‍♂️
+          {data.name}
         </Typography>
       </Grid>
       <Grid

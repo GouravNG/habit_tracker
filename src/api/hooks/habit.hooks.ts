@@ -15,19 +15,19 @@ const createHabit = async (payload: TCreateHabbit) => {
   }
 }
 
-const getHabbit = async () => {
+const getHabbit = async <T>() => {
   try {
-    const data = await apiInstance.get(url_habbit())
+    const data = await apiInstance.get<T>(url_habbit())
     return data.data
   } catch (e) {
     if (e instanceof AxiosError) throw new Error(e.cause?.message)
   }
 }
 
-export const useGetHabbits = () => {
+export const useGetHabbits = <T>() => {
   return useQuery({
     queryKey: ["habbit"],
-    queryFn: getHabbit,
+    queryFn: getHabbit<T>,
   })
 }
 
@@ -37,7 +37,6 @@ const useCreateHabbit = () => {
     mutationKey: ["habbit"],
     mutationFn: createHabit,
     onSuccess: () => QC.invalidateQueries({ queryKey: ["habbit"] }),
-    // onSuccess: () => console.log("HELLO MY FRIEDNS!!!"),
     onError: () => console.log("I fucked up!!"),
   })
 }

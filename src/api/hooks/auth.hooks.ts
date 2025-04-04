@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import { authInstance } from "../axios"
 import { AxiosError } from "axios"
-import { TSignUPLogIn } from "../api.modal"
+import { TAuthResponse, TSignUPLogIn } from "../api.modal"
 import { url_login, url_signup } from "../api"
 import { toggleAuth, updateUserInfo } from "../../store/authSlice"
 import { useTypedDispatch } from "../../store/hooks"
@@ -32,19 +32,21 @@ const loginFn = async (payload: TSignUPLogIn) => {
   }
 }
 
-const handleSucess = (d, dispatch) => {
-  console.log(d)
-  dispatch(toggleAuth())
+const handleSucess = (
+  d: TAuthResponse,
+  dispatch: ReturnType<typeof useTypedDispatch>
+) => {
   dispatch(
     updateUserInfo({
-      email: d?.user?.email,
-      token: d?.access_token,
-      userId: d?.user?.id,
+      email: d.user.email,
+      token: d.access_token,
+      userId: d.user.id,
     })
   )
   localStorage.setItem("isAuthenticated", "1")
-  localStorage.setItem("token", d?.access_token)
-  localStorage.setItem("userId", d?.user?.id)
+  localStorage.setItem("token", d.access_token)
+  localStorage.setItem("userId", d.user.id)
+  dispatch(toggleAuth())
 }
 
 export const useSignup = () => {
@@ -52,7 +54,7 @@ export const useSignup = () => {
   return useMutation({
     mutationKey: ["auth"],
     mutationFn: signUpFn,
-    onSuccess: (d) => handleSucess(d, dispatch),
+    onSuccess: (response: TAuthResponse) => handleSucess(response, dispatch),
     onError: (e) => console.log(e.message),
   })
 }
@@ -62,7 +64,7 @@ export const useLogin = () => {
   return useMutation({
     mutationKey: ["auth"],
     mutationFn: loginFn,
-    onSuccess: (d) => handleSucess(d, dispatch),
+    onSuccess: (response: TAuthResponse) => handleSucess(response, dispatch),
     onError: (e) => console.log(e.message),
   })
 }
