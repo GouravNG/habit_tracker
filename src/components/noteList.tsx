@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { PencilIcon } from "lucide-react"
 
-const NoteList = () => {
+const NoteList = ({ noteName }: { noteName: string }) => {
   return (
     <>
       <Grid
@@ -17,7 +17,7 @@ const NoteList = () => {
             whiteSpace: "nowrap",
           }}
         >
-          Lorem, ipsum dolor sit
+          {noteName}
         </Typography>
       </Grid>
       <Grid size={1}>

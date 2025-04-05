@@ -4,11 +4,12 @@ import Typography from "@mui/material/Typography"
 import { CircleCheck } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleNewEntry } from "../store/toggleSlice"
-import { THabbitResponse } from "../api/api.modal"
+import { setHabitId } from "../store/primarySlice"
+import { TGetHabit } from "../api/types/habits.types"
 
 const placeHolderArray = [1, 2, 3, 4, 5, 6, 7]
 
-const Tracker = ({ data }: { data: THabbitResponse }) => {
+const Tracker = ({ data }: { data: TGetHabit }) => {
   const dispatch = useTypedDispatch()
   return (
     <Grid size={12} container marginBottom={1}>
@@ -54,7 +55,10 @@ const Tracker = ({ data }: { data: THabbitResponse }) => {
           variant="outlined"
           sx={{ borderRadius: 2, paddingY: 2 }}
           endIcon={<CircleCheck />}
-          onClick={() => dispatch(toggleNewEntry())}
+          onClick={() => {
+            dispatch(setHabitId(data.id))
+            dispatch(toggleNewEntry())
+          }}
         >
           Add entry
         </Button>

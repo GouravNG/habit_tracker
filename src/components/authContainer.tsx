@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import { useState } from "react"
 import { useLogin, useSignup } from "../api/hooks/auth.hooks"
-import { TSignUPLogIn } from "../api/api.modal"
+import type { TAuthPayload } from "../api/types/auth.types"
 
 const AuthContainer = () => {
   const [tab, setTab] = useState(0)
@@ -19,7 +19,7 @@ const AuthContainer = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const payload: TSignUPLogIn = {
+    const payload: TAuthPayload = {
       email: formData.get("email")!.toString(),
       password: formData.get("password")!.toString(),
     }

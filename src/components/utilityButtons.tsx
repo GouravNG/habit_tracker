@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button"
 import { PlusCircle, ScrollText } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
-import { toggleNewHabbit, toggleViewAllNotes } from "../store/toggleSlice"
+import { toggleNewHabit, toggleViewAllNotes } from "../store/toggleSlice"
 
 const Utilities = () => {
   const dispatch = useTypedDispatch()
@@ -11,7 +11,7 @@ const Utilities = () => {
         variant="contained"
         sx={{ padding: 2, borderRadius: 2 }}
         endIcon={<PlusCircle />}
-        onClick={() => dispatch(toggleNewHabbit())}
+        onClick={() => dispatch(toggleNewHabit())}
       >
         Add Habbit
       </Button>

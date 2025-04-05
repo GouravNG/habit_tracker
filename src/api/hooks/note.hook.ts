@@ -1,12 +1,13 @@
 import { AxiosError } from "axios"
-import { TCreateNote, TGetNote } from "../api.modal"
-import { apiInstance } from "../axios"
+import { TCreateNote, TGetNote } from "../types/notes.types"
+
 import { url_notes, url_notes_GET } from "../api"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useCreateEntries } from "./entry.hooks"
 import { useTypedSelector } from "../../store/hooks"
 import { useDispatch } from "react-redux"
 import { setNoteid } from "../../store/primarySlice"
+import apiInstance from "../axios"
 
 const createNote = async (payload: TCreateNote) => {
   try {
@@ -37,7 +38,7 @@ export const useGetNotes = <T>() => {
 
 export const useCreateNote = () => {
   const createEntry = useCreateEntries()
-  const habbitid = useTypedSelector((state) => state.primary.habbitId)
+  const habbitid = useTypedSelector((state) => state.primary.habitId)
   const dispatch = useDispatch()
   return useMutation({
     mutationKey: ["notes"],

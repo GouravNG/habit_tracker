@@ -9,12 +9,12 @@ import AddEntry from "./components/addEntry"
 import AddHabbit from "./components/addHabbit"
 import Header from "./components/header"
 import { useGetHabbits } from "./api/hooks/habit.hooks"
-import { THabbitResponse } from "./api/api.modal"
+import { TGetHabit } from "./api/types/habits.types"
 import { Typography } from "@mui/material"
 
 function App() {
   const toggleState = useTypedSelector((states) => states.toggles)
-  const { data, isError, isPending } = useGetHabbits<THabbitResponse[]>()
+  const { data, isError, isPending } = useGetHabbits<TGetHabit[]>()
   if (isPending) return <Typography>Loading...</Typography>
   if (isError) return <Typography>Something went wrong!!</Typography>
   if (
@@ -29,7 +29,7 @@ function App() {
             <Popup>
               {toggleState.isViewAllNotes && <ViewNotes />}
               {toggleState.isNewEntry && <AddEntry />}
-              {toggleState.isNewHabbit && <AddHabbit />}
+              {toggleState.isNewHabit && <AddHabbit />}
             </Popup>
             <Grid size={12} container>
               <TrackerHeader />

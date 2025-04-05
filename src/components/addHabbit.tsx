@@ -4,9 +4,9 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { CircleCheckBig, CircleX } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
-import { toggleNewHabbit } from "../store/toggleSlice"
+import { toggleNewHabit } from "../store/toggleSlice"
 import useCreateHabbit from "../api/hooks/habit.hooks"
-import { TCreateHabbit } from "../api/api.modal"
+import type { TCreateHabit } from "../api/types/habits.types"
 
 const AddHabbit = () => {
   const dispatch = useTypedDispatch()
@@ -14,11 +14,11 @@ const AddHabbit = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const payload: TCreateHabbit = {
+    const payload: TCreateHabit = {
       name: formData.get("habbit-name")!.toString(),
       user_id: localStorage.getItem("userId")!,
     }
-    dispatch(toggleNewHabbit())
+    dispatch(toggleNewHabit())
     habbit.mutate(payload)
   }
   return (
@@ -39,7 +39,7 @@ const AddHabbit = () => {
         <Grid>
           <Grid size={2}>
             <Typography id="modal-modal-title" variant="h6" component={"h2"}>
-              Habbit
+              Habit
             </Typography>
           </Grid>
           <Grid>
@@ -66,7 +66,7 @@ const AddHabbit = () => {
                   variant="outlined"
                   sx={{ padding: 2, borderRadius: 2 }}
                   endIcon={<CircleX />}
-                  onClick={() => dispatch(toggleNewHabbit())}
+                  onClick={() => dispatch(toggleNewHabit())}
                 >
                   Cancel
                 </Button>

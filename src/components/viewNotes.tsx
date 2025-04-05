@@ -9,9 +9,12 @@ import NotesFilter from "./noteFilter"
 import { CircleX } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleViewAllNotes } from "../store/toggleSlice"
+import { useGetNotes } from "../api/hooks/note.hook"
+import type { TGetNote } from "../api/types/notes.types"
 
 const ViewNotes = () => {
   const dispatch = useTypedDispatch()
+  const { data, isError, isPending } = useGetNotes<TGetNote[]>()
   return (
     <>
       <Box
@@ -57,8 +60,15 @@ const ViewNotes = () => {
             <Grid size={12}>
               <NotesFilter />
             </Grid>
-            <NoteList />
-            <NoteList />
+            {isPending && <Typography>Loading..</Typography>}
+            {isError && <Typography>Something went wrong!!</Typography>}
+            {data === undefined || data.length === 0 ? (
+              <Typography>No Data found</Typography>
+            ) : (
+              data.map((i, index) => {
+                return <NoteList key={index} noteName={i.description} />
+              })
+            )}
           </Grid>
           <Grid
             sx={{

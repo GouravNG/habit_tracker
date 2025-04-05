@@ -9,7 +9,7 @@ const PopUp: React.FC<TPopUp> = ({ children }) => {
   const toggleState = useTypedSelector((states) => states.toggles)
   const isEnabled =
     toggleState.isNewEntry ||
-    toggleState.isNewHabbit ||
+    toggleState.isNewHabit ||
     toggleState.isViewAllNotes
 
   const handleOnclose = () => {
