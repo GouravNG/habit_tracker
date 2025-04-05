@@ -1,17 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState = {
-  isNewHabbit: false,
+  isNewHabit: false,
   isNewEntry: false,
   isViewAllNotes: false,
+  isSnackBar: false,
+  snackBarContent: "",
 }
 
 const toggleSlice = createSlice({
   name: "toggles",
   initialState,
   reducers: {
-    toggleNewHabbit: (state) => {
-      state.isNewHabbit = !state.isNewHabbit
+    toggleNewHabit: (state) => {
+      state.isNewHabit = !state.isNewHabit
     },
     toggleNewEntry: (state) => {
       state.isNewEntry = !state.isNewEntry
@@ -19,9 +21,13 @@ const toggleSlice = createSlice({
     toggleViewAllNotes: (state) => {
       state.isViewAllNotes = !state.isViewAllNotes
     },
+    enableSnackBar: (state, action: PayloadAction<string>) => {
+      state.isSnackBar = !state.isSnackBar
+      state.snackBarContent = action.payload
+    },
   },
 })
 
 export default toggleSlice.reducer
-export const { toggleNewEntry, toggleNewHabbit, toggleViewAllNotes } =
+export const { toggleNewEntry, toggleNewHabit, toggleViewAllNotes } =
   toggleSlice.actions

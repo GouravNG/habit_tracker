@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 type TInitialStates = {
   isAuthenticated: boolean
-  authContainer: 0 | 1
   userDetails: {
     token: string
     userId: string
@@ -12,12 +11,11 @@ type TInitialStates = {
 
 const initialState: TInitialStates = {
   isAuthenticated: false,
-  authContainer: 0,
   userDetails: null,
 }
 
 const authSlice = createSlice({
-  name: "authSlice",
+  name: "authSlices",
   initialState,
   reducers: {
     toggleAuth: (state) => {
