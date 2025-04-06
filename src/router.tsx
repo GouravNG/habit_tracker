@@ -1,8 +1,9 @@
 import { Navigate, Route, Routes } from "react-router"
 import App from "./App"
 import AuthContainer from "./components/authContainer"
-import { useTypedSelector } from "./store/hooks"
+import { useTypedDispatch, useTypedSelector } from "./store/hooks"
 import { Alert, Snackbar } from "@mui/material"
+import { toggleSnackBar } from "./store/toggleSlice"
 
 const Router = () => {
   const isAuthenticated =
@@ -12,6 +13,9 @@ const Router = () => {
   const snackBarContent = useTypedSelector(
     (state) => state.toggles.snackBarContent
   )
+
+  const dispatch = useTypedDispatch()
+
   return (
     <>
       <Routes>
@@ -31,6 +35,7 @@ const Router = () => {
         open={snackBarStatus}
         autoHideDuration={3000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => dispatch(toggleSnackBar())}
       >
         <Alert severity={"info"}>{snackBarContent}</Alert>
       </Snackbar>

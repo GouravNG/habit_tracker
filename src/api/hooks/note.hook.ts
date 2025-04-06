@@ -8,11 +8,11 @@ import { useTypedSelector } from "../../store/hooks"
 import { useDispatch } from "react-redux"
 import { setNoteid } from "../../store/primarySlice"
 import apiInstance from "../axios"
+import { enableSnackBar } from "../../store/toggleSlice"
 
 const createNote = async (payload: TCreateNote) => {
   try {
     const res = await apiInstance.post(url_notes(), payload)
-    console.log(res.data)
     return res.data
   } catch (e) {
     if (e instanceof AxiosError) throw new Error(e.response?.data?.message)
@@ -39,18 +39,20 @@ export const useGetNotes = <T>() => {
 export const useCreateNote = () => {
   const createEntry = useCreateEntries()
   const habbitid = useTypedSelector((state) => state.primary.habitId)
+  const status = useTypedSelector((state) => state.toggles.isDone)
   const dispatch = useDispatch()
   return useMutation({
     mutationKey: ["notes"],
     mutationFn: createNote,
     onSuccess: (response: TGetNote[]) => {
       dispatch(setNoteid(response[0].id))
+      dispatch(enableSnackBar("New note added successfully"))
       createEntry.mutate({
         habit_id: habbitid!,
-        status: "DONE",
+        status: status,
         note_id: response[0].id,
       })
     },
-    onError: () => console.log("Some error in creating the Note"),
+    onError: () => dispatch(enableSnackBar("Unable to add new note.")),
   })
 }

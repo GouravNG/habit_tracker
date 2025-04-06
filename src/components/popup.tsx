@@ -1,5 +1,6 @@
 import Modal from "@mui/material/Modal"
 import { useTypedSelector } from "../store/hooks"
+import { Box } from "@mui/material"
 
 type TPopUp = {
   children: React.ReactNode
@@ -23,7 +24,7 @@ const PopUp: React.FC<TPopUp> = ({ children }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <>{children}</>
+        <Box>{children}</Box>
       </Modal>
     </div>
   )

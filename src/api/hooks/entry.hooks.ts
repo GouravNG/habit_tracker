@@ -1,11 +1,17 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createEntries, getEntries } from "../functions/entry.fn"
+import { useTypedDispatch } from "../../store/hooks"
+import { enableSnackBar, toggleNewEntry } from "../../store/toggleSlice"
 
 export const useCreateEntries = () => {
+  const dispatch = useTypedDispatch()
   return useMutation({
     mutationFn: createEntries,
-    onSuccess: () => console.log("Added new entry successfully"),
-    onError: () => console.log("Unable to add new entry"),
+    onSuccess: () => {
+      dispatch(enableSnackBar("Entry added successfully"))
+      dispatch(toggleNewEntry())
+    },
+    onError: () => dispatch(enableSnackBar("Unable to add new entry.")),
   })
 }
 

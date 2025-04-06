@@ -6,15 +6,14 @@ import ToggleButton from "@mui/material/ToggleButton"
 
 import { CircleCheckBig, CircleX } from "lucide-react"
 import { useTypedDispatch, useTypedSelector } from "../store/hooks"
-import { toggleNewEntry } from "../store/toggleSlice"
-import { useState } from "react"
+import { toggleIsDone, toggleNewEntry } from "../store/toggleSlice"
 import { useCreateNote } from "../api/hooks/note.hook"
 
 const AddEntry = () => {
   const dispatch = useTypedDispatch()
   const habitId = useTypedSelector((state) => state.primary.habitId)
   const createNote = useCreateNote()
-  const [status, setStatus] = useState<"DONE" | "NOTDONE">("DONE")
+  const status = useTypedSelector((state) => state.toggles.isDone)
   const date = new Date()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,9 +63,7 @@ const AddEntry = () => {
               <ToggleButton
                 value={"check"}
                 selected={status === "DONE" ? true : false}
-                onClick={() =>
-                  setStatus(status === "DONE" ? "NOTDONE" : "DONE")
-                }
+                onClick={() => dispatch(toggleIsDone())}
                 sx={{ marginY: 1, paddingY: 1 }}
               >
                 {status}
