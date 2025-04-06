@@ -15,45 +15,47 @@ import { Typography } from "@mui/material"
 function App() {
   const toggleState = useTypedSelector((states) => states.toggles)
   const { data, isError, isPending } = useGetHabbits<TGetHabit[]>()
-  if (isPending) return <Typography>Loading...</Typography>
-  if (isError) return <Typography>Something went wrong!!</Typography>
-  if (
-    data === undefined ||
-    (data.length && <Typography>No habit found!!</Typography>)
-  )
-    if (data) {
-      return (
-        <>
-          <Header />
-          <Grid container height={"30vh"}>
-            <Popup>
-              {toggleState.isViewAllNotes && <ViewNotes />}
-              {toggleState.isNewEntry && <AddEntry />}
-              {toggleState.isNewHabit && <AddHabbit />}
-            </Popup>
-            <Grid size={12} container>
-              <TrackerHeader />
-            </Grid>
-            <Grid size={12} sx={{ height: "300px", overflowY: "auto" }}>
-              {data.map((i, index) => {
-                return <Tracker data={i} key={index} />
-              })}
-            </Grid>
-            <Grid
-              size={12}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                height: "100%",
-              }}
-            >
-              <Utilities />
-            </Grid>
+
+  if (data) {
+    return (
+      <>
+        <Header />
+        <Grid container height={"30vh"}>
+          <Popup>
+            {toggleState.isViewAllNotes && <ViewNotes />}
+            {toggleState.isNewEntry && <AddEntry />}
+            {toggleState.isNewHabit && <AddHabbit />}
+          </Popup>
+          <Grid size={12} container>
+            <TrackerHeader />
           </Grid>
-        </>
-      )
-    }
+          <Grid size={12} sx={{ height: "300px", overflowY: "auto" }}>
+            {isPending && <Typography>Loading...</Typography>}
+            {isError && <Typography>Something went wrong!!</Typography>}
+            {(data === undefined || !data.length) && (
+              <Typography textAlign={"center"} sx={{ p: 2 }}>
+                No habit found!!
+              </Typography>
+            )}
+            {data.map((i, index) => {
+              return <Tracker data={i} key={index} />
+            })}
+          </Grid>
+          <Grid
+            size={12}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+              height: "100%",
+            }}
+          >
+            <Utilities />
+          </Grid>
+        </Grid>
+      </>
+    )
+  }
 }
 
 export default App
