@@ -1,4 +1,5 @@
-const baseURL: string = import.meta.env.VITE_API_DOMAIN
+const baseURL: string =
+  import.meta.env.VITE_API_DOMAIN ?? "https://projectid.supabase.co"
 
 export const url_signup = () => "/auth/v1/signup"
 export const url_login = () => "/auth/v1/token?grant_type=password"
