@@ -18,7 +18,9 @@ export const signUpFn = async (payload: TAuthPayload) => {
 }
 
 export const loginFn = async (payload: TAuthPayload) => {
+  console.log("checkpoint loginfn")
   try {
+    console.log(`checkpoints ${url_login()}`)
     const res = await authInstance.post(url_login(), payload)
     return res.data
   } catch (e) {
