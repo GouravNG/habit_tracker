@@ -18,7 +18,6 @@ const AuthContainer = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log("checkpoint buton click")
     const formData = new FormData(e.currentTarget)
     const payload: TAuthPayload = {
       email: formData.get("email")!.toString(),
