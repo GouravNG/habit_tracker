@@ -38,7 +38,7 @@ const AuthContainer = () => {
           height: "98vh",
         }}
       >
-        <Grid size={5}>
+        <Grid size={{ lg: 5 }} sx={{ width: "100%" }}>
           <Card elevation={4} sx={{ padding: 2, borderRadius: 2 }}>
             <Typography
               variant="h5"
