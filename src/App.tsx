@@ -20,7 +20,7 @@ function App() {
     return (
       <>
         <Header />
-        <Grid container height={"30vh"}>
+        <Grid container height={"20vh"}>
           <Popup>
             {toggleState.isViewAllNotes && <ViewNotes />}
             {toggleState.isNewEntry && <AddEntry />}
@@ -29,7 +29,10 @@ function App() {
           <Grid size={12} container>
             <TrackerHeader />
           </Grid>
-          <Grid size={12} sx={{ height: "300px", overflowY: "auto" }}>
+          <Grid
+            size={12}
+            sx={{ height: { lg: "300px", xs: "500px" }, overflowY: "auto" }}
+          >
             {isPending && <Typography>Loading...</Typography>}
             {isError && <Typography>Something went wrong!!</Typography>}
             {(data === undefined || !data.length) && (

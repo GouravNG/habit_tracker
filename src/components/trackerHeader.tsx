@@ -4,7 +4,7 @@ const TrackerHeader = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
   return (
     <>
-      <Grid size={2} />
+      <Grid size={2} display={{ xs: "none", lg: "flex" }} />
       <Grid
         container
         size="grow"
@@ -27,7 +27,7 @@ const TrackerHeader = () => {
           )
         })}
       </Grid>
-      <Grid size={2} />
+      <Grid size={2} display={{ xs: "none", lg: "flex" }} />
     </>
   )
 }

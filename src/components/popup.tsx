@@ -17,7 +17,7 @@ const PopUp: React.FC<TPopUp> = ({ children }) => {
     console.log("Modal is closed")
   }
   return (
-    <div>
+    <>
       <Modal
         open={isEnabled}
         onClose={handleOnclose}
@@ -26,7 +26,7 @@ const PopUp: React.FC<TPopUp> = ({ children }) => {
       >
         <Box>{children}</Box>
       </Modal>
-    </div>
+    </>
   )
 }
 

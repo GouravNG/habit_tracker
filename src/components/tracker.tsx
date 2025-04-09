@@ -12,13 +12,27 @@ const placeHolderArray = [1, 2, 3, 4, 5, 6, 7]
 const Tracker = ({ data }: { data: TGetHabit }) => {
   const dispatch = useTypedDispatch()
   return (
-    <Grid size={12} container marginBottom={1}>
-      <Grid size={2} alignContent={"center"} justifyContent={"center"}>
+    <Grid
+      size={12}
+      container
+      marginBottom={1}
+      sx={{
+        border: { xs: "1px black solid", lg: "none" },
+        p: { xs: 1, lg: 0 },
+        borderRadius: { xs: 2 },
+      }}
+    >
+      <Grid
+        size={{ lg: 2, xs: 6 }}
+        alignContent={"center"}
+        justifyContent={"center"}
+      >
         <Typography variant="h6" textAlign={"center"}>
           {data.name}
         </Typography>
       </Grid>
       <Grid
+        display={{ xs: "none", lg: "flex" }}
         size="grow"
         container
         spacing={1}
@@ -43,7 +57,7 @@ const Tracker = ({ data }: { data: TGetHabit }) => {
         })}
       </Grid>
       <Grid
-        size={2}
+        size={{ lg: 2, xs: 6 }}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -62,6 +76,28 @@ const Tracker = ({ data }: { data: TGetHabit }) => {
         >
           Add entry
         </Button>
+      </Grid>
+      <Grid
+        display={{ xs: "flex", lg: "none" }}
+        sx={{ width: "100%", p: 1 }}
+        gap={{ xs: 3, lg: 1 }}
+      >
+        {placeHolderArray.map((_, index) => {
+          return (
+            <Grid
+              textAlign={"center"}
+              size="grow"
+              key={index}
+              sx={{
+                backgroundColor: "orange",
+                borderRadius: 2,
+                textAlign: "center",
+              }}
+            >
+              &nbsp;
+            </Grid>
+          )
+        })}
       </Grid>
     </Grid>
   )
