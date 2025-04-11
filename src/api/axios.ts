@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import baseURL from "./api"
 
 export const authInstance = axios.create({
@@ -24,5 +24,20 @@ apiInstance.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
   return config
 })
+
+apiInstance.interceptors.response.use(
+  (_) => _,
+  (e) => {
+    if (e instanceof AxiosError) {
+      const { response } = e
+      if (
+        response?.status === 401 &&
+        response.data?.message === "JWT expired"
+      ) {
+        localStorage.removeItem("isAuthenticated")
+      }
+    }
+  }
+)
 
 export default apiInstance
