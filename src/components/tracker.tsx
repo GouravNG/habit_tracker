@@ -98,16 +98,24 @@ const Tracker = ({ data }: { data: THabit }) => {
         sx={{ width: "100%", p: 1 }}
         gap={{ xs: 3, lg: 1 }}
       >
-        {placeHolderArray.map((_, index) => {
+        {placeHolderArray.map((date, index) => {
+          const finalEntry = data.entries.filter((cdate) => {
+            return cdate.created_at.includes(date)
+          })
+          const color =
+            finalEntry.length &&
+            finalEntry[finalEntry.length - 1].status === "DONE"
+              ? "green"
+              : "lightblue"
           return (
             <Grid
               textAlign={"center"}
               size="grow"
               key={index}
               sx={{
-                backgroundColor: "orange",
+                height: "100%",
+                backgroundColor: color,
                 borderRadius: 2,
-                textAlign: "center",
               }}
             >
               &nbsp;
