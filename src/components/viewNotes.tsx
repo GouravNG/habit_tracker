@@ -2,10 +2,10 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import IconButton from "@mui/material/IconButton"
 import Grid from "@mui/material/Grid"
-import Pagination from "@mui/material/Pagination"
+// import Pagination from "@mui/material/Pagination"
 
 import NoteList from "./noteList"
-import NotesFilter from "./noteFilter"
+// import NotesFilter from "./noteFilter"
 import { CircleX } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleViewAllNotes } from "../store/toggleSlice"
@@ -52,14 +52,16 @@ const ViewNotes = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              msOverflowY: "auto",
+              maxHeight: "400px",
+              overflowY: "auto",
+              overflowX: "hidden",
             }}
             container
             spacing={1}
           >
-            <Grid size={12}>
+            {/* <Grid size={12}>
               <NotesFilter />
-            </Grid>
+            </Grid> */}
             {isPending && <Typography>Loading..</Typography>}
             {isError && <Typography>Something went wrong!!</Typography>}
             {data === undefined || data.length === 0 ? (
@@ -70,7 +72,7 @@ const ViewNotes = () => {
               })
             )}
           </Grid>
-          <Grid
+          {/* <Grid
             sx={{
               display: "flex",
               alignItems: "center",
@@ -78,7 +80,7 @@ const ViewNotes = () => {
             }}
           >
             <Pagination count={5} shape="rounded" />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </>
