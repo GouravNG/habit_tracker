@@ -9,12 +9,12 @@ import AddEntry from "./components/addEntry"
 import AddHabbit from "./components/addHabbit"
 import Header from "./components/header"
 import { useGetHabbits } from "./api/hooks/habit.hooks"
-import { TGetHabit } from "./api/types/habits.types"
+import { THabitsResponse } from "./api/types/habits.types"
 import { Typography } from "@mui/material"
 
 function App() {
   const toggleState = useTypedSelector((states) => states.toggles)
-  const { data, isError, isPending } = useGetHabbits<TGetHabit[]>()
+  const { data, isError, isPending } = useGetHabbits<THabitsResponse>()
 
   if (data) {
     return (

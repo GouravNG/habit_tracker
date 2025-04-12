@@ -1,7 +1,13 @@
 import Grid from "@mui/material/Grid"
 
 const TrackerHeader = () => {
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
+  const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+  const today = new Date()
+  const startFrom = today.getDay()
+  const weekDays = Array.from(
+    { length: 7 },
+    (_, i) => days[(startFrom + i) % 7]
+  )
   return (
     <>
       <Grid size={2} display={{ xs: "none", lg: "flex" }} />

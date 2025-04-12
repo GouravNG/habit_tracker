@@ -5,11 +5,19 @@ import { CircleCheck } from "lucide-react"
 import { useTypedDispatch } from "../store/hooks"
 import { toggleNewEntry } from "../store/toggleSlice"
 import { setHabitId } from "../store/primarySlice"
-import { TGetHabit } from "../api/types/habits.types"
+import { THabit } from "../api/types/habits.types"
 
-const placeHolderArray = [1, 2, 3, 4, 5, 6, 7]
+const today = new Date()
 
-const Tracker = ({ data }: { data: TGetHabit }) => {
+const placeHolderArray = Array.from({ length: 7 })
+  .map((_, i) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() - i)
+    return date.toISOString().slice(0, 10)
+  })
+  .reverse()
+
+const Tracker = ({ data }: { data: THabit }) => {
   const dispatch = useTypedDispatch()
   return (
     <Grid
@@ -41,7 +49,15 @@ const Tracker = ({ data }: { data: TGetHabit }) => {
           justifyContent: "space-between",
         }}
       >
-        {placeHolderArray.map((_, index) => {
+        {placeHolderArray.map((date, index) => {
+          const finalEntry = data.entries.filter((cdate) => {
+            return cdate.created_at.includes(date)
+          })
+          const color =
+            finalEntry.length &&
+            finalEntry[finalEntry.length - 1].status === "DONE"
+              ? "green"
+              : "lightblue"
           return (
             <Grid
               textAlign={"center"}
@@ -49,7 +65,7 @@ const Tracker = ({ data }: { data: TGetHabit }) => {
               key={index}
               sx={{
                 height: "100%",
-                backgroundColor: "orange",
+                backgroundColor: color,
                 borderRadius: 2,
               }}
             />
